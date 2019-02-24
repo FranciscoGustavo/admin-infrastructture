@@ -1,33 +1,193 @@
-.App {
-  text-align: center;
+/*
+==================================================
+    COLORS
+==================================================
+*/
+:root {
+  --primary-dark: #6a0080;
+  --primary-light: #d05ce3;
+  --primary: #9c27b0;
+  --secondary-dark: #087f23;
+  --secondary-light: #80e27e;
+  --secondary: #4caf50;
+  --white: #FFF;
+  --black: #000;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+/*
+==================================================
+    OVER RIDE
+==================================================
+*/
+.sidenav .nav-link {
+  padding: 0.5rem 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.btn-primary {
+  border: 0;
+  background-color: var(--primary);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/*
+==================================================
+    small (portrait phones, less than 576px)
+==================================================
+*/
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-bottom: 2rem;
+  background-color: var(--secondary-dark);
+  z-index: 100;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.navbar .btn-menu {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: white;
+}
+
+.navbar .btn-menu i { font-size: 2rem; }
+
+/*================================================*/
+
+.sidenav, .aside-container {
+  position: fixed;
+  top: 0;
+  transition: all 300ms; 
+}
+
+.sidenav {
+  left: -100%;
+  width: 80%;
+  max-width: 280px;
+  height: 100vh;
+  background-color: var(--secondary-dark);
+  color: white;
+}
+
+.sidenav.active { left: 0; }
+
+.sidenav .nav-link {
+  padding: 0.75rem 1rem;
+  color: inherit;
+}
+
+.sidenav .nav-link i {
+  float: left;
+  margin-right: 0.5rem;
+}
+
+.sidenav .brand {
+  text-align: center;
+  padding: 0.5rem auto;
+  border-bottom: solid 1px gray;
+}
+
+.sidenav .brand span {
+  font-size: 2rem;
+}
+
+
+.aside-container {
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 4rem 0;
+  overflow-y: auto;
+}
+
+.aside-container.active { left: 280px; }
+
+/*==============================================*/
+.products .avatarImage{
+  width: 70px;
+  height: 70px;
+}
+
+
+
+/*
+==================================================
+    Extra small (portrait phones, less than 576px)
+==================================================
+*/
+@media (max-width: 575.98px) {
+  /*==============================================*/
+  .products .form-searh button {
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+  button.add {
+    width: 100%;
   }
+}
+
+
+/*
+==================================================
+    Small (landscape phones, less than 768px)
+==================================================
+*/
+@media (max-width: 767.98px) { 
+
+}
+
+
+ /*
+==================================================
+    Medium (tablets, less than 992px)
+==================================================
+*/
+@media (min-width: 991.98px) { 
+  .sidenav {
+    left: 0;
+    width: 60px;
+  }
+  
+  .sidenav .nav-link {
+    text-align: center;
+    font-size: 0;
+  }
+  .sidenav .nav-link i {
+    float: unset;
+    margin: 0;
+  }
+
+  .sidenav.active { width: 280px; }
+  
+  .sidenav.active .nav-link {
+    text-align: left;
+    font-size: inherit;
+  }
+  .sidenav.active .nav-link i {
+    float: left;
+    margin-right: 0.5rem;
+  }
+
+  .aside-container {
+    left: 60px;
+    width: calc(100% - 60px);
+  }
+
+  .aside-container.active {
+    left: 280px;
+    width: calc(100% - 280px);
+  }
+}
+
+@media (max-width: 991.98px) { 
+
+ }
+/*
+==================================================
+    Large (desktops, less than 1200px)            
+==================================================
+*/
+@media (max-width: 1199.98px) { 
+
 }

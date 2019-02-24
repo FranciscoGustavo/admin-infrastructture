@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import Sidenav from './Components/Globals/Sidenav'
+import Navbar from './Components/Globals/Navbar'
+
+
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      menu : ""
+    }
+
+    this.handleClick = this.handleClick.bind(this)
+
+  }
+
+  handleClick(){
+    if(this.state.menu === "") return this.setState({menu : "active"});
+    return this.setState({menu : ""});
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Sidenav isActive={this.state.menu}/>
+        <div className={"aside-container " + this.state.menu}>
+          <Navbar handleClick={this.handleClick}/>
+          {this.props.children}
+        </div>
       </div>
     );
   }
