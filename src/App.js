@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
+// Components
 import Sidenav from './Components/Globals/Sidenav'
 import Navbar from './Components/Globals/Navbar'
 
-
+// Styles
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
@@ -27,11 +28,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Sidenav isActive={this.state.menu}/>
-        <div className={"aside-container " + this.state.menu}>
-          <Navbar handleClick={this.handleClick}/>
-          {this.props.children}
-        </div>
+          <Sidenav isActive={this.state.menu}/>
+          <div className={"aside-container " + this.state.menu}>
+            <Navbar handleClick={this.handleClick}/>
+            {this.props.children}
+          </div>
       </div>
     );
   }

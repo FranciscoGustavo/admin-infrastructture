@@ -49,9 +49,6 @@ class RowProduct extends Component {
     }
 
     handleClick(e){
-        console.log(e.currentTarget.getAttribute('data-id'))
-        //if(e.currentTarget.tagName !== 'BUTTON') e.target = e.target.parentElement
-        console.log(e.currentTarget)
         this.props.edit(e.currentTarget.getAttribute('data-id'));
     }
 
@@ -68,14 +65,11 @@ class RowProduct extends Component {
                 <td>{this.props.pd.price}</td>
                 <td>{this.props.pd.unity}</td>
                 <td>
-                    <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-secondary" data-id={this.props.pd._id} onClick={this.handleClick}>
-                            <i className="material-icons">edit</i>
-                        </button>
-                        <button type="button" className="btn btn-secondary">
-                            <i className="material-icons">delete</i>
-                        </button>
-                    </div>
+                    <button type="button" className="btn bg-warning edit" data-id={this.props.pd._id} onClick={this.handleClick}>
+                        <span>Editar</span>
+                        <i className="material-icons float-right">edit</i>
+                    </button>
+
                 </td>
             </tr>
         )

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose}  from 'redux';
 import { routerReducer } from 'react-router-redux';
-//import persistState from 'redux-localstorage';
+import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 
 import reducers from '../reducers';
@@ -8,7 +8,7 @@ import reducers from '../reducers';
 // Combine all our midlewares
 const enhancer = function(middleware){
     return compose(
-        //persistState('user'),
+        persistState('users'),
         applyMiddleware(middleware, thunk)
     )
 }

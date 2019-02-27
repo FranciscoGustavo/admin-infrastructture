@@ -105,6 +105,38 @@
 .aside-container.active { left: 280px; }
 
 /*==============================================*/
+button.edit {
+  min-width: 95px;
+}
+
+/*==============================================*/
+.log-in > div { height: 100vh; }
+.log-in .form {
+  padding: 1rem;
+}
+
+/*==============================================*/
+.btn-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+}
+
+.btn-close i { font-size: 2rem; }
+
+.imageCover {
+  margin: auto;
+  background-color: red;
+  background-size: cover;
+  background-position: center;  
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+/*==============================================*/
 .products .avatarImage{
   width: 70px;
   height: 70px;
