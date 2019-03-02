@@ -69,7 +69,7 @@ class Products extends Component {
             return (<h1>Error de conexion</h1>)
         }
 
-        return <TableProducts products={this.props.products.docs} edit={this.editProduct}/>
+        return <TableProducts products={this.props.products.docs} edit={this.editProduct} page={this.props.products.page} items={this.props.products.limit}/>
     }
 
     showPagination(){

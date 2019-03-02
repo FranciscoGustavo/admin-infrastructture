@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default class Sidenav extends Component {
     render(){
         return(
-            <ul className={"sidenav navbar-nav " + this.props.isActive}>
+            <ul className={"sidenav navbar-nav shadow  " + this.props.isActive}>
                 <li className="nav-item brand">
                     <span className="navbar-brand">Infrastructure</span>          
                 </li>
@@ -32,9 +32,15 @@ export default class Sidenav extends Component {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/Pedidos" className="nav-link">
+                    <Link to="/pedidos" className="nav-link">
                         <i className="material-icons">shopping_cart</i>
                         Pedidos
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link to="/pedidos" className="nav-link">
+                        <i className="material-icons">supervised_user_circle</i>
+                        Usuarios
                     </Link>
                 </li>
             </ul>

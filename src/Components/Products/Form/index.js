@@ -41,7 +41,7 @@ export default class Form extends Component {
         req.getAllCategories()
         .then(res => {
             this.categories = res;
-            this.setState({categories : res});
+            this.setState({categories : res.docs});
         })
     }
 
@@ -239,7 +239,7 @@ class InputField extends Component {
 
     render(){
         return(
-            <div className={"form-group" + (this.props.responsive || "")}>
+            <div className={"form-group " + (this.props.responsive || "")}>
                 <label htmlFor={this.props.id}>
                     {this.props.label}
                 </label>

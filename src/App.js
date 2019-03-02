@@ -28,7 +28,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Sidenav isActive={this.state.menu}/>
+          <Sidenav isActive={this.state.menu} click={this.handleClick}/>
           <div className={"aside-container " + this.state.menu}>
             <Navbar handleClick={this.handleClick}/>
             {this.props.children}

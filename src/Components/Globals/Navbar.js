@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Navbar extends Component {
     render(){
         return(
-            <nav className="navbar">
+            <nav className="navbar shadow">
                 <button onClick={this.props.handleClick} className="btn-menu">
                     <i className="material-icons">menu</i>
                 </button>                

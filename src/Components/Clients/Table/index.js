@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 
-export default class TableProducts extends Component {
+export default class TableClients extends Component {
     loadProducts(){
         let count = (this.props.page * this.props.items) - this.props.items;
-        if(this.props.products){
-            return this.props.products.map((pro, index) => {
+        if(this.props.clients){
+            return this.props.clients.map((cl, index) => {
                 count++;
-                return (<RowProduct key={index} pd={pro} edit={this.props.edit} number={count}/>)
+                return (<RowClient
+                    key={index} 
+                    cl={cl} 
+                    number={count}
+                    edit={this.props.edit}/>)
             })
         } 
     }
@@ -18,11 +22,9 @@ export default class TableProducts extends Component {
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Cover</th>
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Unidad</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Dirección</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -34,24 +36,21 @@ export default class TableProducts extends Component {
     }
 }
 
-class RowProduct extends Component {
+class RowClient extends Component {
     constructor(props){
         super(props)
 
         this.handleClick = this.handleClick.bind(this)
     }
-    isThereAnImage(){
-        if(this.props.pd.avatarImage) return this.props.pd.avatarImage
-        return "https://user-images.githubusercontent.com/16608864/35882949-bbe13aa0-0bab-11e8-859c-ceda3b213818.jpeg"
-    }
 
-    isThereACategory(){
-        if(this.props.pd._category) return this.props.pd._category.title
-        return "Undifined"
-    }
 
     handleClick(e){
         this.props.edit(e.currentTarget.getAttribute('data-id'));
+    }
+
+    isThereAnImage(){
+        if(this.props.cl.photo) return this.props.cl.photo;
+        return "https://res.cloudinary.com/dwapbqqbo/image/upload/v1551222505/pg2bkcnhmfldmi7g6qab.jpg";
     }
 
     render(){
@@ -61,16 +60,15 @@ class RowProduct extends Component {
                 <td>
                     <img className="avatarImage" alt="" src={this.isThereAnImage()}/>
                 </td>
-                <td>{this.props.pd.title}</td>
-                <td>{this.props.pd.description}</td>
-                <td>{this.isThereACategory()}</td>
-                <td>{this.props.pd.price}</td>
-                <td>{this.props.pd.unity}</td>
+                <td>{this.props.cl.name}</td>
+                <td>{this.props.cl.email}</td>
+                <td>{this.props.cl.address}</td>
                 <td>
-                    <button type="button" className="btn bg-warning edit" data-id={this.props.pd._id} onClick={this.handleClick}>
+                    <button type="button" className="btn bg-warning edit" data-id={this.props.cl._id} onClick={this.handleClick}>
                         <span>Editar</span>
                         <i className="material-icons float-right">edit</i>
                     </button>
+
                 </td>
             </tr>
         )
