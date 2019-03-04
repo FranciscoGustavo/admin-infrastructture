@@ -15,3 +15,15 @@ export function postSessionUser(data){
     })
     .catch(console.log)
 }
+
+export function getAllUsers(jwt){
+    return fetch(config.url + 'users', {
+        headers : {
+            'Authorization': 'Bearer ' + jwt
+        }
+    })
+    .then(res => {
+        return res.json()
+    })
+    .catch(console.log)
+}

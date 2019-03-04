@@ -26,3 +26,21 @@ export function getOrder(id, jwt){
         })
     }
 }
+
+export function postOrder(data, jwt){
+    return (dispatch, getState) => {
+        req.postOrder(data, jwt).then(res => {
+            if(res) return dispatch(loadAllOrders(res))
+            return dispatch(errorOrders())
+        })
+    }
+} 
+
+export function putOrder(id, data, jwt){
+    return (dispatch, getState) => {
+        req.putOrder(id, data, jwt).then(res => {
+            if(res) return dispatch(loadAllOrders(res))
+            return dispatch(errorOrders())
+        })
+    }
+} 

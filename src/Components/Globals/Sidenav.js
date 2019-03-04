@@ -38,7 +38,7 @@ export default class Sidenav extends Component {
                     </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/pedidos" className="nav-link">
+                    <Link to="/usuarios" className="nav-link">
                         <i className="material-icons">supervised_user_circle</i>
                         Usuarios
                     </Link>
