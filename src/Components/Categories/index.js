@@ -10,6 +10,7 @@ import * as actions from '../../actions/categoriesActions';
 // Components 
 import TableCategories from './Table';
 import Form from './Form';
+import Pagination from '../Globals/Pagination';
 
 
 class Categories extends Component {
@@ -32,6 +33,7 @@ class Categories extends Component {
         this.closeModal = this.closeModal.bind(this);
         this.editCategory = this.editCategory.bind(this);
         this.newCategory = this.newCategory.bind(this);
+        this.numberPage = this.numberPage.bind(this);
 
     }
 
@@ -88,6 +90,17 @@ class Categories extends Component {
             edit={this.editCategory}/>
     }
 
+    showPagination(){
+        if(this.props.categories.page){
+            return <Pagination page={this.props.categories.page} pages={this.props.categories.pages} click={this.numberPage}/>
+        }
+    }
+
+    numberPage(page){
+        console.log(page);
+        
+        this.props.dispatch(actions.getAllCategories("page=" + page));
+    }
 
     render(){
         return(
@@ -112,6 +125,7 @@ class Categories extends Component {
                 </div>
 
                 {this.showTable()}
+                {this.showPagination()}
 
                 <Modal
                     isOpen={this.state.modalIsOpen}

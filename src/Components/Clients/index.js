@@ -10,6 +10,7 @@ import * as actions from '../../actions/clientsActions';
 // Components
 import TableClients from './Table';
 import Form from './Form';
+import Pagination from '../Globals/Pagination';
 
 
 class Clients extends Component {
@@ -32,6 +33,7 @@ class Clients extends Component {
         this.editClient = this.editClient.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.numberPage = this.numberPage.bind(this);
 
     }
 
@@ -81,6 +83,18 @@ class Clients extends Component {
         return <TableClients clients={this.props.clients.docs} page={this.props.clients.page} items={this.props.clients.pages} edit={this.editClient}/>
     }
 
+    showPagination(){
+        if(this.props.clients.page){
+            return <Pagination page={this.props.clients.page} pages={this.props.clients.pages} click={this.numberPage}/>
+        }
+    }
+
+    numberPage(page){
+        console.log(page);
+        
+        this.props.dispatch(actions.getAllClients("page=" + page, this.props.users.jwt));
+    }
+
 
     render(){
         return(
@@ -105,6 +119,7 @@ class Clients extends Component {
                 </div>
 
                 {this.showTable()}
+                {this.showPagination()}
 
                 <Modal
                     isOpen={this.state.modalIsOpen}

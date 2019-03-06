@@ -1,7 +1,7 @@
 import config from '../config';
 
 export function getAllOrders(page, jwt){
-    return fetch(config.url + 'orders/' + page, {
+    return fetch(config.url + 'orders/?' + page, {
         headers : {
             'Authorization' : 'Bearer ' + jwt
         }

@@ -8,9 +8,10 @@ function loadAllCategories(categories){
     return {type : 'LOAD_ALL_CATEGORIES',categories};
 }
 
-export function getAllCategories(){
+export function getAllCategories(page){
+    if(!page) page = "page="
     return (dispatch, getSate) => {
-        req.getAllCategories().then(res => {
+        req.getAllCategories(page).then(res => {
             dispatch(loadAllCategories(res));
         })
     }

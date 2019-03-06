@@ -15,6 +15,8 @@ import * as req from '../../request/orders';
 // Components
 import TableOrders from './TableOrders';
 import Form from './Form';
+import Pagination from '../Globals/Pagination';
+import Search from '../Globals/Search';
 
 
 class Orders extends Component {
@@ -33,6 +35,8 @@ class Orders extends Component {
         this.closeModal = this.closeModal.bind(this);
         this.editOrder = this.editOrder.bind(this);
         this.newOrder = this.newOrder.bind(this);
+        this.numberPage = this.numberPage.bind(this);
+        this.searching = this.searching.bind(this);
     }
 
     newOrder(){
@@ -69,6 +73,22 @@ class Orders extends Component {
         return <TableOrders orders={this.props.orders.docs} page={this.props.orders.page} items={this.props.orders.limit} edit={this.editOrder}/>
     }
 
+    showPagination(){
+        if(this.props.orders.page){
+            return <Pagination page={this.props.orders.page} pages={this.props.orders.pages} click={this.numberPage}/>
+        }
+    }
+
+    numberPage(page){
+        console.log(page);
+        
+        this.props.dispatch(actions.getAllOrders("page=" + page, this.props.users.jwt));
+    }
+
+    searching(text){
+
+    }
+
     render(){
         return(
             <div className="container products">
@@ -79,10 +99,7 @@ class Orders extends Component {
                 </div>
                 <div className="row mb-5    ">
                     <div className="col-md-6">
-                        <form className="form-inline my-2 my-lg-0 form-searh">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+                        <Search search={this.searching}/>
                     </div>
                     <div className="col-md-6 text-right">
                         <Link to="/pedidos/nuevo" type="button" className="btn btn-primary add">
@@ -92,6 +109,7 @@ class Orders extends Component {
                 </div>
 
                 {this.showTable()}
+                {this.showPagination()}
 
                 <Modal
                     isOpen={this.state.modalIsOpen}

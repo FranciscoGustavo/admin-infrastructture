@@ -1,7 +1,7 @@
 import config from '../config';
 
-export function getAllCategories(){
-    return fetch(config.url + 'categories')
+export function getAllCategories(page){
+    return fetch(config.url + 'categories/?' + page)
     .then(res => {
         return res.json()
     })

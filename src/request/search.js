@@ -7,3 +7,15 @@ export function findProducts(title){
     })
     .catch(console.log)
 }
+
+export function findUsers(name, jwt){
+    return fetch(config.url + 'users/find?name=' + name, {
+        headers : {
+            'Authorization' : 'Bearer '+jwt
+        }
+    })
+    .then(res => {
+        return res.json() 
+    })
+    .catch(console.log)
+}

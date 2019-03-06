@@ -1,31 +1,25 @@
 import React, { Component } from 'react';
 
 // Actions
-import * as req from '../../../request/categories';
+//import * as req from '../../../request/categories';
+
+// Components 
+import InputField from '../../Globals/Form/InputField';
 
 export default class Form extends Component {
     constructor(props){
-        super(props);
-
-        this.state = {
-            categories : [],
-            unity : ['KG','DM','MNJ','PZ']
-        }
-    
-        this.loadCategories();
-
+        super(props); 
         /*
         ==================================================
                         Creating Refs          
         ==================================================
         */
 
+        this.nameRef = React.createRef();
+        this.emailRef = React.createRef();
         this.imageRef = React.createRef();
-        this.titleRef = React.createRef();
-        this.descriptionRef = React.createRef();
-        this.categoryRef = React.createRef();
-        this.unityRef = React.createRef();
-        this.priceRef = React.createRef();
+        this.adminRef = React.createRef();
+        this.passwordRef = React.createRef();
 
         /*
         ==================================================
@@ -35,14 +29,6 @@ export default class Form extends Component {
         this.handdleChange = this.handdleChange.bind(this);
         this.handdleSubmit = this.handdleSubmit.bind(this);
     
-    }
-
-    loadCategories(){
-        req.getAllCategories()
-        .then(res => {
-            this.categories = res;
-            this.setState({categories : res.docs});
-        })
     }
 
     /*===============================================
@@ -59,13 +45,15 @@ export default class Form extends Component {
     handdleSubmit(e){
         e.preventDefault();
 
+        console.log(this.adminRef);
+        
+
         let data = {
             image: {},
-            title: this.titleRef.current.defaultValue,
-            description: this.descriptionRef.current.defaultValue,
-            unity: this.unityRef.current.selectedOptions[0].value,
-            price: this.priceRef.current.defaultValue,
-            _category: this.categoryRef.current.selectedOptions[0].value
+            name: this.nameRef.current.defaultValue,
+            email: this.emailRef.current.defaultValue,
+            password: null,
+            admin: this.adminRef.current.defaultChecked
         }
 
         if(this.imageRef.current.files[0]) {
@@ -74,10 +62,18 @@ export default class Form extends Component {
             delete data.image
         }
 
-        //console.log(data)
+        if(this.passwordRef.current.defaultValue !== ""){
+            data.password = this.passwordRef.current.defaultValue;
+        } else {
+            delete data.password
+        }
 
-        if(this.props.pd.slug){
-            this.props.update(data, this.props.pd.slug);
+        console.log(data)
+
+        if(this.props.us._id){
+            console.log(this.props.us);
+            
+            this.props.update(data, this.props.us._id);
         } else{
             this.props.create(data);
         }
@@ -92,74 +88,24 @@ export default class Form extends Component {
      *
     */
 
-    title(){
-        if(this.props.pd.title) return this.props.pd.title;
+    name(){
+        if(this.props.us.name) return this.props.us.name;
         return "";
     }
 
-    description(){
-        if(this.props.pd.description) return this.props.pd.description;
+    email(){
+        if(this.props.us.email) return this.props.us.email;
         return "";
+    }
+
+    admin(){
+        if(this.props.us.admin) return this.props.us.admin
+        return false
     }
 
     image(){
-        if(this.props.pd.avatarImage) return 'url('+this.props.pd.avatarImage+')';
+        if(this.props.us.photo) return 'url('+this.props.us.photo+')';
         return "url(https://user-images.githubusercontent.com/16608864/35882949-bbe13aa0-0bab-11e8-859c-ceda3b213818.jpeg)";
-    }
-
-    category(id){
-        if(this.props.pd._category) {
-            if(id) return this.props.pd._category._id;
-            return this.props.pd._category.title;
-        }
-        return "Slecciona una opcion";
-    }
-
-    unity(){
-        if(this.props.pd.unity) return this.props.pd.unity;
-        return "Slecciona una opcion";
-    }
-
-    price(){
-        if(this.props.pd.price) return this.props.pd.price.toString();
-        return "";
-    }
-
-
-    /*
-     *
-     * Hacemos render de la opciones de seleccion 
-     *
-    */
-
-    // Opciones de unidad
-    unityOptions(){
-        let unity;
-        if(this.props.pd.unity) {
-            unity = this.state.unity.filter(e => {return e !== this.props.pd.unity});
-        } else {
-            unity = this.state.unity;
-        }
-        return unity.map((e,index)=>{
-            return (
-                <option key={index} value={e}>{e}</option>
-            );
-        });
-    }
-
-    // Opciones de categorias 
-    categoryOptions(){
-        if(this.state.categories){
-            return this.state.categories.map((e,index) => {
-                let JSXElement;
-                if(!this.props.pd._category){
-                    JSXElement = <option key={index} value={e._id}>{e.title}</option>;
-                }else if(this.props.pd._category._id !== e._id){
-                    JSXElement = <option key={index} value={e._id}>{e.title}</option>;
-                }
-                return JSXElement; 
-            })
-        } 
     }
 
     render(){
@@ -176,32 +122,21 @@ export default class Form extends Component {
 
 
                     </div>
+
                     <div className="col-12 col-md-8">
                         
                         
-                        <InputField label="Titulo" RefValue={this.titleRef} id="title" value={this.title()}/>
-                        <TextArea label="Descripción" RefValue={this.descriptionRef} id="description" value={this.description()}/>
+                        <InputField label="Nombre" RefValue={this.nameRef} id="title" value={this.name()}/>
 
-                        <div className="form-row">
-                            <div className="form-group col-12 col-sm-4">
-                                <label htmlFor="title">Categoria</label>
-                                <select className="custom-select" ref={this.categoryRef}>
-                                    <option value={this.category(true)}>{this.category(false)}</option>
-                                    {this.categoryOptions()}
-                                </select>
-                            </div>
-                            <div className="form-group col-12 col-sm-4">
-                                <label htmlFor="title">Unidad</label>
-                                <select className="custom-select" ref={this.unityRef}>
-                                    <option value={this.unity()}>{this.unity()}</option>
-                                    {this.unityOptions()}
-                                </select>
-                            </div>
+                        <InputField label="Email" RefValue={this.emailRef} id="description" value={this.email()}/>
 
-                            <InputField mode="number" label="Precio" RefValue={this.priceRef} id="price" value={this.price()} responsive="col-12 col-sm-4"/>
+                        <InputCheck label="Administrador" RefValue={this.adminRef} id="admin" value={this.admin()}/>
 
+                        <InputField label="Contraseña" RefValue={this.passwordRef} id="password" value=""/>
+
+                        <div className="form-group">
+                            <button type="submit" className="btn btn-primary">Guardar</button>
                         </div>
-                        <button type="submit" className="btn btn-primary">Guardar</button>
 
                     </div>
                 </div>
@@ -212,7 +147,7 @@ export default class Form extends Component {
     }
 }
 
-class InputField extends Component {
+class InputCheck extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -224,66 +159,27 @@ class InputField extends Component {
     }
 
     handleChange(e){
-        if(this.props.mode === "number"){
-            if(!isNaN(e.target.value)){ 
-                this.setState({value: e.target.value});
-            } else {
-                e.target.value = "";
-                this.setState({value: e.target.value});
-                alert('Solo puedes introducir numeros');
-            }
-        } else {
-            this.setState({value: e.target.value});
-        }
+        console.log(e.target.checked);
+
+        
+        this.setState({value: e.target.checked});
     }
 
     render(){
         return(
-            <div className={"form-group " + (this.props.responsive || "")}>
-                <label htmlFor={this.props.id}>
+
+            <div className="custom-control custom-checkbox form-group">
+                <input 
+                    type="checkbox" 
+                    className="custom-control-input" 
+                    id={this.props.id} 
+                    defaultChecked={this.state.value} 
+                    ref={this.props.RefValue}
+                    onChange={this.handleChange} 
+                    />
+                <label className="custom-control-label" htmlFor={this.props.id}>
                     {this.props.label}
                 </label>
-                <input 
-                    type={this.props.type || "text"} 
-                    className="form-control" 
-                    id={this.props.id} 
-                    defaultValue={this.state.value} 
-                    ref={this.props.RefValue} 
-                    onChange={this.handleChange}
-                />
-            </div>
-        )
-    }
-}
-
-class TextArea extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            value: this.props.value
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-
-    }
-
-    handleChange(e){
-        this.setState({value: e.target.value});
-    }
-
-    render(){
-        return(
-            <div className="form-group">
-                <label htmlFor={this.props.id}>{this.props.label}</label>
-                <textarea 
-                    className="form-control"
-                    id={this.props.id}
-                    defaultValue={this.state.value}
-                    ref={this.props.RefValue}
-                    onChange={this.handleChange}
-                >
-                    
-                </textarea>
             </div>
         )
     }

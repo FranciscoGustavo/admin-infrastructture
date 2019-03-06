@@ -10,7 +10,7 @@ import * as actions from '../../actions/productsActions';
 // Components
 import TableProducts from './Table';
 import Form from './Form';
-import Pagination from './Pagination';
+import Pagination from '../Globals/Pagination';
 
 class Products extends Component {
     constructor(props){
